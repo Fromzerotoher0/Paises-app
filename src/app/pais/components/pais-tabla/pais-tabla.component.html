@@ -1,0 +1,32 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Bandera</th>
+      <th>Nombre</th>
+      <th>Capital</th>
+      <th>Poblacion</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <!---bucle para recorrer los resultados de la busqueda-->
+    <tr
+      *ngFor="let item of paises; let i = index"
+      class="animate__animated animate__fadeIn"
+    >
+      <td>{{ i + 1 }}</td>
+      <td><img [src]="item.flag" class="small-flag" width="50px" /></td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.capital }}</td>
+      <td>{{ item.population | number }}</td>
+      <td>
+        <a
+          [routerLink]="['/pais', item.alpha2Code]"
+          routerLinkActive="router-link-active"
+          >Ver...</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>

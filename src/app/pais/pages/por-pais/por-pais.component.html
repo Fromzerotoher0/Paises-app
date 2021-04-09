@@ -1,0 +1,47 @@
+<H2>Por Pais</H2>
+<hr />
+<div class="row animate__animated animate__fadeIn">
+  <div class="col">
+    <!--(onEnter) para obtener la busqueda desde pais-input.component
+    para luego mandarlo como parametro a el metodo buscar() de esta clase
+    -->
+    <app-pais-input
+      (onEnter)="buscar($event)"
+      (ondebounce)="sugerencias($event)"
+      placeholder="buscar pais..."
+    >
+    </app-pais-input>
+  </div>
+  <div>
+    <ul class="list-group" *ngIf="mostrarsugerencia">
+      <li
+        class="list-group-item list-group-item-action"
+        *ngFor="let item of paissugerido"
+      >
+        <a class="nav-link" [routerLink]="['/pais', item.alpha2Code]">{{
+          item.name
+        }}</a>
+      </li>
+      <li
+        class="list-group-item list-group-item-action"
+        (click)="buscarsugerido(termino)"
+      >
+        <a class="nav-link"> buscar "{{ termino }}"</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<hr />
+<!---condicional para mostrar errores-->
+<div class="alert alert-danger" *ngIf="hayerror">
+  No se encontro nada con el termino {{ termino }}
+</div>
+<!--condicional para mostrar los paises si hay un resultado valido-->
+<div class="row" *ngIf="paises.length > 0">
+  <div class="col">
+    <!--[] contiene la variable paises del componente pais-tabla
+    ="paises" contiene los resultados de la busqueda y se los manda a pais-tabla component
+    -->
+    <app-pais-tabla [paises]="paises"></app-pais-tabla>
+  </div>
+</div>
